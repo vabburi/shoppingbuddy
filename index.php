@@ -3,7 +3,7 @@ require('vendor/autoload.php');
 define('AMQP_DEBUG', true);
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-$url = parse_url(getenv('CLOUDAMQP_URL'));
+$url = parse_url(getenv('RABBITMQ_BIGWIG_TX_URL'));
 print_r($url);
 $conn = new AMQPConnection($url['host'], 5672, $url['user'], $url['pass'], substr($url['path'], 1));
 $ch = $conn->channel();
