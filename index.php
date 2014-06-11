@@ -5,9 +5,11 @@ define('AMQP_DEBUG', true);
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 $url = parse_url(getenv('RABBITMQ_BIGWIG_RX_URL'));
+$echo "$URL=";
+$print_r($url);
 $conn = new AMQPConnection($url['host'], 5672, $url['user'], $url['pass'], substr($url['path'], 1));
 $ch = $conn->channel();
-$print_r($url);
+
 
 $exchange = 'amq.direct';
 $queue = 'basic_get_queue';
