@@ -10,7 +10,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 $url = parse_url(getenv('RABBITMQ_BIGWIG_RX_URL'));
 $conn = new AMQPConnection($url['host'], 5672, $url['user'], $url['pass'], substr($url['path'], 1));
 $ch = $conn->channel();
-
+exit;
 $exchange = 'amq.direct';
 $queue = 'basic_get_queue';
 $ch->queue_declare($queue, false, true, false, false);
@@ -33,5 +33,5 @@ catch (Exception $e) {
     echo 'Caught exception: ',  $e->getMessage(), "\n";
 }
 
-echo 'after try..catch block'
+echo 'after try..catch block';
 ?>
