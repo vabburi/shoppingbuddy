@@ -1,4 +1,8 @@
 <?php include_once("index.html");
+
+try
+{
+
 echo "came in";
 require('vendor/autoload.php');
 define('AMQP_DEBUG', true);
@@ -25,6 +29,10 @@ $retrived_msg = $ch->basic_get($queue);
 echo "printing msg retrieved";
 var_dump($retrived_msg->body);
 $ch->basic_ack($retrived_msg->delivery_info['delivery_tag']);
+}
+catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 $ch->close();
 $conn->close();
