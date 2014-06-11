@@ -9,6 +9,7 @@ var_dump($url);
 $conn = new AMQPConnection($url['host'], 5672, $url['user'], $url['pass'], substr($url['path'], 1)) or exit('unable to open AMQP Connection');
 $ch = $conn->channel();
 
+echo 'came here';
 var_dump($ch);
 $exchange = 'amq.direct';
 $queue = 'basic_get_queue';
