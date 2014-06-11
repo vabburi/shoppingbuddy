@@ -1,6 +1,6 @@
 <?php
 echo 'came in'
-
+exit;
 try
 {
 echo 'before try block';
