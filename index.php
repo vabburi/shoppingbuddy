@@ -3,7 +3,7 @@ require('vendor/autoload.php');
 define('AMQP_DEBUG', true);
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-$url = parse_url(getenv('CLOUDAMQP_URL'));
+$url = parse_url(getenv('RABBITMQ_BIGWIG_RX_URL'));
 $conn = new AMQPConnection($url['host'], 5672, $url['user'], $url['pass'], substr($url['path'], 1));
 $ch = $conn->channel();
 
@@ -18,6 +18,7 @@ $msg = new AMQPMessage($msg_body, array('content_type' => 'text/plain', 'deliver
 $ch->basic_publish($msg, $exchange);
 
 $retrived_msg = $ch->basic_get($queue);
+echo 'printing msg retrieved:';
 var_dump($retrived_msg->body);
 $ch->basic_ack($retrived_msg->delivery_info['delivery_tag']);
 
