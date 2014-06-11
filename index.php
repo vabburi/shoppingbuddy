@@ -18,7 +18,11 @@ $msg = new AMQPMessage($msg_body, array('content_type' => 'text/plain', 'deliver
 $ch->basic_publish($msg, $exchange);
 
 $retrived_msg = $ch->basic_get($queue);
+<<<<<<< HEAD
 echo 'printing msg retrieved:';
+=======
+echo "printing msg retrieved";
+>>>>>>> master
 var_dump($retrived_msg->body);
 $ch->basic_ack($retrived_msg->delivery_info['delivery_tag']);
 
