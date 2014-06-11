@@ -1,16 +1,16 @@
 <?php include_once("index.html");
 
-echo 'came in';
+
 
 try
 {
-
+echo "came in";
 require('vendor/autoload.php');
 define('AMQP_DEBUG', true);
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 $url = parse_url(getenv('RABBITMQ_BIGWIG_RX_URL'));
-echo '$URL=';
+echo "$URL=";
 var_dump($url);
 $conn = new AMQPConnection($url['host'], 5672, $url['user'], $url['pass'], substr($url['path'], 1));
 $ch = $conn->channel();
@@ -30,10 +30,11 @@ $retrived_msg = $ch->basic_get($queue);
 echo "printing msg retrieved";
 var_dump($retrived_msg->body);
 $ch->basic_ack($retrived_msg->delivery_info['delivery_tag']);
-}
-catch (Exception $e) {
-    echo 'Caught exception: ',  $e->getMessage(), "\n";
-}
-
 $ch->close();
 $conn->close();
+}
+catch (Exception $e) {
+    echo "Caught exception: ",  $e->getMessage(), "\n";
+}
+
+
