@@ -6,7 +6,7 @@ use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 $url = parse_url(getenv('RABBITMQ_BIGWIG_RX_URL'));
 $echo "$URL=";
-$print_r($url);
+var_dump($url);
 $conn = new AMQPConnection($url['host'], 5672, $url['user'], $url['pass'], substr($url['path'], 1));
 $ch = $conn->channel();
 
