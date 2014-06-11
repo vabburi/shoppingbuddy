@@ -1,16 +1,19 @@
 <?php include_once("index.html");
-echo 'before try block';
 
 try
 {
+echo 'before try block';
+exit;
 require('vendor/autoload.php');
 define('AMQP_DEBUG', true);
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 $url = parse_url(getenv('RABBITMQ_BIGWIG_RX_URL'));
-$conn = new AMQPConnection($url['host'], 5672, $url['user'], $url['pass'], substr($url['path'], 1));
-$ch = $conn->channel();
+var_dump($url);
 exit;
+$conn = new AMQPConnection($url['host'], 5672, $url['user'], $url['pass'], substr($url['path'], 1)) or exit('unable to open AMQP Connection');
+$ch = $conn->channel();
+
 $exchange = 'amq.direct';
 $queue = 'basic_get_queue';
 $ch->queue_declare($queue, false, true, false, false);
