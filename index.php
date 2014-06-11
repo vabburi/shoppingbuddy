@@ -9,6 +9,7 @@ var_dump($url);
 $conn = new AMQPConnection($url['host'], 5672, $url['user'], $url['pass'], substr($url['path'], 1)) or exit('unable to open AMQP Connection');
 $ch = $conn->channel();
 
+var_dump($ch);
 $exchange = 'amq.direct';
 $queue = 'basic_get_queue';
 $ch->queue_declare($queue, false, true, false, false);
@@ -16,9 +17,10 @@ $ch->exchange_declare($exchange, 'direct', true, true, false);
 $ch->queue_bind($queue, $exchange);
 
 $msg_body = 'the body';
-$msg = new AMQPMessage($msg_body, array('content_type' => 'text/plain', 'delivery_mode' => 2));
+$msg = new AMQPMessage($msg_body, array('content_type' => 'text/plain', 'delivery_mode' => 2)) or exit('unable to send message');
 $ch->basic_publish($msg, $exchange) or exit('unable to publish message on rabbitmq');
 
+// prepare to receive
 $url = parse_url(getenv('RABBITMQ_BIGWIG_RX_URL')) or exit('unable to read env variable to receive ');
 var_dump($url);
 
